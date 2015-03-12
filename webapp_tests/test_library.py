@@ -5,7 +5,6 @@ import os
 import unittest
 import time
 from webapp import library as lib
-from webapp import login as log
 
 
 def main():
