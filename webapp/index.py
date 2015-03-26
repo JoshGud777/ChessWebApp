@@ -5,14 +5,16 @@ else:
     import webapp.library as lib
 
 
-def html():
+def html_p():
+    '''docstring'''
     html = lib.get_html(lib.HTML_DIR + 'index.html')
     print(html)
 
 
 def main():
+    '''docstring'''
     lib.print_header()
-    html()
+    html_p()
 
 
 if __name__ == '__main__':
