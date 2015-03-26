@@ -36,5 +36,4 @@ class VarsTestCase(unittest.TestCase):
 
 if __name__ == "__main__":
     main()
-    time.sleep(1)
     unittest.main()
