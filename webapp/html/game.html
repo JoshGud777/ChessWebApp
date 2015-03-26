@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--
+$$printdata		$$
+$$command		$$
+$$printcommand	$$
+-->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- TemplateBeginEditable name="doctitle" -->
+<title>AppleQuest - Game</title>
+<!-- TemplateEndEditable -->
+<!-- TemplateBeginEditable name="head" -->
+<!-- TemplateEndEditable -->
+<link href="css\game.css" rel="stylesheet" type="text/css" />
+<link href="html\css\game.css" rel="stylesheet" type="text/css" /><!-- Used for python output -->
+</head>
+<body>
+<br>
+<p>-----------OLD-----------</p>
+<p>$$oldcookie$$$</p>
+<p>-----------NEW-----------</p>
+<p>$$newcookie$$$</p>
+<p>----------PRINT----------</p>
+<p>$$printdata$$</p>
+<p>-------------------------</p>
+<form action="game.py">
+Command:
+<input type="text" name="command" value="$$command$$">
+<br><br>
+<input type="submit" value="--- Send Command ---">
+</form>
+<br>
+<form action="game.py">
+<input type="hidden" name="newid" value="true">
+<input type="submit" value="--- Get New Session Information ---">
+</form>
+</body>
+</html>
