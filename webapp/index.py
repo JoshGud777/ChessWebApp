@@ -9,20 +9,15 @@ else:
 # os.environ["QUERY_STRING"] = "redirect=game"
 
 
-def html_p():
-    '''docstring'''
-    html = lib.get_html(lib.HTML_DIR + 'index.html')
-    print(html)
-
-
 def main():
     '''docstring'''
     form = lib.get_cgi_data()
     redirect = form.getfirst('redirect')
-    
+
     lib.print_header()
-    if redirect == None:
-        html_p()
+
+    if redirect is None:
+        lib.print_me(lib.HTML_DIR + 'index.html')
     elif type(redirect) == str:
         try:
             lib.print_me(lib.REDIRECT_DIR + 'to_' +
@@ -30,7 +25,7 @@ def main():
         except FileNotFoundError:
             lib.print_me(lib.HTML_DIR + 'index.html')
     else:
-        html_p()
+        lib.print_me(lib.HTML_DIR + 'index.html')
 
 if __name__ == '__main__':
     main()
