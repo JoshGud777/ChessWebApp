@@ -4,6 +4,10 @@ if __name__ == '__main__':
 else:
     import webapp.library as lib
 
+import os
+os.environ["REQUEST_METHOD"] = "GET"
+os.environ["QUERY_STRING"] = "redirect=game"
+
 
 def html_p():
     '''docstring'''
@@ -19,9 +23,9 @@ def main():
     lib.print_header()
     if redirect == None:
         html_p()
-    elif redirect == str:
+    elif type(redirect) == str:
         try:
-            lib.print_me(lib.HTML_DIR + 'to_' +
+            lib.print_me(lib.REDIRECT_DIR + 'to_' +
                          redirect.lower() + '.html')
         except FileNotFoundError:
             lib.print_me(lib.HTML_DIR + 'index.html')
