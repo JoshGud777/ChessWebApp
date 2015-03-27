@@ -4,9 +4,9 @@ if __name__ == '__main__':
 else:
     import webapp.library as lib
 
-import os
-os.environ["REQUEST_METHOD"] = "GET"
-os.environ["QUERY_STRING"] = "redirect=game"
+# import os
+# os.environ["REQUEST_METHOD"] = "GET"
+# os.environ["QUERY_STRING"] = "redirect=game"
 
 
 def html_p():
