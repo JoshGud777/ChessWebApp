@@ -21,8 +21,9 @@ def main():
         html_p()
     elif redirect == str:
         try:
-            lib.print_me(lib.HTML_DIR + redirect.lower())
-        except:
+            lib.print_me(lib.HTML_DIR + 'to_' +
+                         redirect.lower() + '.html')
+        except FileNotFoundError:
             lib.print_me(lib.HTML_DIR + 'index.html')
     else:
         html_p()
