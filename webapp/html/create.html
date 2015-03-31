@@ -1,0 +1,26 @@
+<html>
+<head>
+<Title>Chess - Creat User</Title>
+<link href="css\game.css" rel="stylesheet" type="text/css" />
+<link href="html\css\game.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<form action="create.py" method="POST">
+    Username:<br>
+    <input type="text" name=username>
+	<br>
+	Password:<br>
+	<input type="password" name="password">
+	<br>
+	Conferm Password:<br>
+	<input type="password" name="confirm">
+	<br>
+	E-mail:<br>
+    <input type="text" name="email"><br>
+	<input type="hidden" name="key" value="create_user">
+	<input type="submit" value="Create User!">
+
+    <p>$$returndata$$</p>
+
+</body>
+</html>
