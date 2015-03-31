@@ -66,6 +66,6 @@ def main():
 
 
 if __name__ == '__main__':
-   # lib.print_header()
-   # print('!!! Offline !!!\n Email: servgud777@gmail.com for info.')
-   main()
+   lib.print_header()
+   print('!!! Offline !!!\n Email: servgud777@gmail.com for info.')
+   # main()
