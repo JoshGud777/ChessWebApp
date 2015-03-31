@@ -25,7 +25,8 @@ def main():
         confirm = form.getvalue('confirm')
         email = form.getvalue('email')
 
-        if username or password or confirm or email is None:
+        if username is None or password is None or confirm is None or\
+        email is None:
             resp = 'NoneError'
         elif password == confirm:
             resp = lib.add_user(username, password, email, c)
