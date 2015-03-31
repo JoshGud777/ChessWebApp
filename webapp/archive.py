@@ -17,6 +17,8 @@ def print_html(dbdata):
     for row in dbdata:
         tabledata += '<tr>\n'
         for item in row:
+            if item == None:
+                item = ''
             tabledata += '  ' + '<td>' + str(item) + '</td>\n'
         tabledata  += '</tr>\n'
     html = html.replace('$$tabledata$$', tabledata)
@@ -26,7 +28,8 @@ def print_html(dbdata):
 
 def main():
     conn, c = lib.open_conn(lib.DB_DIR + 'ChessApp.db')
-    c.execute("SELECT * FROM archive")
+    c.execute("SELECT timestamp, userwin, userloss,\
+commentwin, commentloss,draw FROM archive")
     data = c.fetchall()
 
     lib.print_header()
