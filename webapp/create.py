@@ -30,7 +30,7 @@ def main():
             resp = 'pwerror'
 
 
-        if thing == 'exists'
+        if thing == 'exists':
             lib.print_header()
             error = '!!! Invalid Username OR Password !!!'
             html_print(error)
