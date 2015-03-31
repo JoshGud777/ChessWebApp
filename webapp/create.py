@@ -4,10 +4,10 @@ else: import webapp.library as lib
 
 import sqlite3
 
-# import os
+# import os
 # os.environ["REQUEST_METHOD"] = "GET"
-# os.environ["QUERY_STRING"] = "key=create_user&username=s&password=s&
-#                               confirm=s&email=joshgud777@gmail.com"
+# os.environ["QUERY_STRING"] = "key=create_user"
+
 import cgitb
 cgitb.enable()
 
@@ -20,18 +20,24 @@ def main():
     conn, c = lib.open_conn(lib.DB_DIR + 'ChessApp.db')
     form = lib.get_cgi_data()
     if form.getvalue('key') == 'create_user':
-        username = form['username'].value
-        password = form['password'].value
-        confirm = form['confirm'].value
-        email = form['email'].value
+        username = form.getvalue('username')
+        password = form.getvalue('password')
+        confirm = form.getvalue('confirm')
+        email = form.getvalue('email')
 
-        if password == confirm:
+        if username or password or confirm or email == None:
+            resp = 'NoneError'
+        elif password == confirm:
             resp = lib.add_user(username, password, email, c)
         else:
             resp = 'pwerror'
 
+        if resp == 'NoneError':
+            lib.print_header()
+            error = 'Please fill in all the fields'
+            html_print()
 
-        if resp == 'exists':
+        elif resp == 'exists':
             lib.print_header()
             error = '!!! Invalid Username, User Exists !!!'
             html_print(error)
@@ -66,6 +72,7 @@ def main():
 
 
 if __name__ == '__main__':
-   lib.print_header()
-   print('!!! Offline !!!\n Email: servgud777@gmail.com for info.')
-   # main()
+    # lib.print_header()
+    # print('!!! Offline !!!\nEmail: servgud777@gmail.com for info.')
+
+    main()
