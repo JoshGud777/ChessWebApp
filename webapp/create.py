@@ -4,7 +4,7 @@ else: import webapp.library as lib
 
 import sqlite3
 
-# import os
+# import os
 # os.environ["REQUEST_METHOD"] = "GET"
 # os.environ["QUERY_STRING"] = "key=create_user"
 
@@ -25,7 +25,7 @@ def main():
         confirm = form.getvalue('confirm')
         email = form.getvalue('email')
 
-        if username or password or confirm or email == None:
+        if username or password or confirm or email is None:
             resp = 'NoneError'
         elif password == confirm:
             resp = lib.add_user(username, password, email, c)
@@ -35,7 +35,7 @@ def main():
         if resp == 'NoneError':
             lib.print_header()
             error = 'Please fill in all the fields'
-            html_print()
+            html_print(error)
 
         elif resp == 'exists':
             lib.print_header()
@@ -74,5 +74,4 @@ def main():
 if __name__ == '__main__':
     # lib.print_header()
     # print('!!! Offline !!!\nEmail: servgud777@gmail.com for info.')
-
     main()
