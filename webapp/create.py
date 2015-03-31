@@ -73,6 +73,6 @@ def main():
 
 
 if __name__ == '__main__':
-    # lib.print_header()
-    # print('!!! Offline !!!\nEmail: servgud777@gmail.com for info.')
-    main()
+    lib.print_header()
+    print("Script Offline! Email 'servgud777@gmail.com' for info.")
+    # main()
