@@ -16,7 +16,7 @@ def html_print(returndata='<!--returndata-->'):
     print(html)
 
 def main():
-    lib.open_conn(lib.DB_DIR + 'ChessApp.db')
+    conn, c = lib.open_conn(lib.DB_DIR + 'ChessApp.db')
     form = lib.get_cgi_data()
     if form.getvalue('key') == 'create_user':
         username = form['username'].value
@@ -24,25 +24,27 @@ def main():
         confirm = form['confirm'].value
         email = form['email'].value
 
-        # TODO
+        if password == confirm:
+            resp = add_user(username, password, email, c)
+        else:
+            resp = 'pwerror'
 
-        if session_info[0] == 'noauth':
+
+        if thing == 'exists'
             lib.print_header()
             error = '!!! Invalid Username OR Password !!!'
             html_print(error)
 
-        elif session_info[0] == 'sqlerror':
+        elif thing == 'sqlerror':
             lib.print_header()
             error = 'Internal SQL error. </br> '\
                     'Please e-mail servgud777@gmail.com!'
             html_print(error)
 
-        elif username == session_info[2]:
-            sessionid, exp, username = session_info
-            cookie = lib.cookie_wright(sessionid, exp, username)
+        elif thing == thing:
             lib.print_header(cookie)
-            error = 'Good'
-            html_print(error)
+            returndata = '!!! User Created !!!'
+            html_print(returndata)
 
         else:
             lib.print_header()
@@ -54,7 +56,7 @@ def main():
         lib.print_header()
         html_print()
 
-    lib.save_close_conn()
+    lib.save_close_conn(conn)
 
 
 if __name__ == '__main__':

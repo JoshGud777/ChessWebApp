@@ -1,4 +1,5 @@
-'''This is the library files for all used code that needs to be uused multi times'''
+'''This is the library files for all used code that needs to be
+used multi times'''
 import binascii
 import cgi
 import hashlib
@@ -6,7 +7,7 @@ import http.cookies
 import os
 import sqlite3
 import time
-import cgitb 
+import cgitb
 cgitb.enable()
 
 HTML_DIR = 'html\\'
@@ -16,35 +17,31 @@ COOKIE_MAX_AGE = 300
 # COOKIE_DOMAIN = 'applequest.fallenofftheedge.com'
 COOKIE_PATH = '/'
 
-conn = None
-c = None
-
 
 def open_conn(database):
     '''Open SQL Connection to a given sqlite databsase'''
-    global conn
-    global c
     conn = sqlite3.connect(database)
     c = conn.cursor()
+    return (conn, c)
 
 
-def save_conn():
+def save_conn(conn):
     '''Savesthe conn'''
     conn.commit()
 
 
-def save_close_conn():
+def save_close_conn(conn):
     '''Saves and closes the conn'''
     conn.commit()
     conn.close()
 
 
-def close_conn():
+def close_conn(conn):
     '''Closes the database conn'''
     conn.close()
 
 
-def add_user(username, pword, email=None):
+def add_user(username, pword, email, c):
     '''For a givven username and pasword and maybe an e-mail. Adds the user to
     the database. If the user is allready there then it returns false. if it
     added the database it sends True'''
@@ -63,19 +60,21 @@ def add_user(username, pword, email=None):
                                                                enchexpass,
                                                                salt, email))
     except sqlite3.IntegrityError:
-        return 'exist'
-    except sqlite3.Error:
+        return 'exists'
+
+    except:
         return 'sqlerror'
+
     return True
 
 
-def issue_session_id(username, pword):
+def issue_session_id(username, pword, c):
     '''issues a session id for a given username, checks the user and pass
     agenst the db then sends back a sessionif, epx, and theusername it is sent
     agenst | noauth means username and password is wrrong | sqlerror means the
     server is haveing issues'''
     username = username.lower()
-    authuser = check_user(username, pword)
+    authuser = check_user(username, pword, c)
     if authuser is True:
 
         sqlretry = 0
@@ -101,15 +100,14 @@ def issue_session_id(username, pword):
                 if sqlretry == 10:
                     return ('sqlerror', 'sqlerror', 'sqlerror')
 
-        save_conn()
         return (sessionid, exp, username)
 
     return ('noauth', 'noauth', 'noauth')
 
 
-def renew_session_id(old_id, username):
+def renew_session_id(old_id, username, c):
     '''givven the old session id and username it checks that the session is
-    is still good then send a newone if OK, else it sends out a "sqlerror" in
+    is still good then send a newone if OK, else it sends out a "s qlerror" in
     the case the server is erroring and a "expired" if the session is old'''
     username = username.lower()
     c.execute("SELECT * FROM sessions WHERE username =  ? AND id = ?",
@@ -126,24 +124,23 @@ def renew_session_id(old_id, username):
         sqlretry = 0
         while sqlgood is False:
             exp = int(time.time()) + 300
-            # seconds till this is expired | 300 = 5 min | 1 = 1 sec
-            sessionid = binascii.hexlify(os.urandom(512)).decode("utf-8")
+            # secontill this is expired | 300 = 5 min | 1 = 1 sec
+            sessionid = binascii.hexlify(os.urandom(16)).decode("utf-8")
             try:
                 c.execute("DELETE FROM sessions WHERE username = ?",
                           [username])
                 c.execute("INSERT INTO sessions VALUES (?, ?, ?)",
                           [sessionid, exp, username])
                 sqlgood = True
-            except:
+            except sqlite.Error:
                 sqlretry += 1
                 if sqlretry == 10:
                     return 'sqlerror'
 
-        save_conn()
         return (sessionid, exp, username)
 
 
-def delete_session(sessionid, username):
+def delete_session(sessionid, username, c):
     '''deletes a session from the database in the case the client wants to
     "logoff"'''
     username = username.lower()
@@ -155,11 +152,10 @@ def delete_session(sessionid, username):
 
     c.execute("DELETE FROM sessions WHERE username = ? OR id = ?",
               [username, sessionid])
-    save_conn()
     return True
 
 
-def check_user(username, pword):
+def check_user(username, pword, c):
     '''checks the username and password agenst the data base loaded with the
     open_conn(), returns True is they are correct'''
     username = username.lower()
