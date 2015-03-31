@@ -1,5 +1,5 @@
-''''Create users from this page and add them to the data base''' 
-if __name__ == '__main__': import library as lib 
+''''Create users from this page and add them to the data base'''
+if __name__ == '__main__': import library as lib
 else: import webapp.library as lib
 
 enable_script = 0
