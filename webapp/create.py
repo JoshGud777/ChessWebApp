@@ -6,7 +6,7 @@ import sqlite3
 
 # import os
 # os.environ["REQUEST_METHOD"] = "GET"
-# os.environ["QUERY_STRING"] = "redirect=create"
+# os.environ["QUERY_STRING"] = "key=create_user&username=s&password=s&confirm=s&email=joshgud777@gmail.com"
 import cgitb
 cgitb.enable()
 
@@ -25,24 +25,29 @@ def main():
         email = form['email'].value
 
         if password == confirm:
-            resp = add_user(username, password, email, c)
+            resp = lib.add_user(username, password, email, c)
         else:
             resp = 'pwerror'
 
 
-        if thing == 'exists':
+        if resp == 'exists':
             lib.print_header()
-            error = '!!! Invalid Username OR Password !!!'
+            error = '!!! Invalid Username, User Exists !!!'
             html_print(error)
 
-        elif thing == 'sqlerror':
+        elif resp == 'pwerror':
+            lib.print_header()
+            error = 'Passwords did not match!'
+            html_print(error)
+
+        elif resp == 'sqlerror':
             lib.print_header()
             error = 'Internal SQL error. </br> '\
                     'Please e-mail servgud777@gmail.com!'
             html_print(error)
 
-        elif thing == thing:
-            lib.print_header(cookie)
+        elif resp is True:
+            lib.print_header()
             returndata = '!!! User Created !!!'
             html_print(returndata)
 
