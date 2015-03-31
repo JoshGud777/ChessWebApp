@@ -6,7 +6,8 @@ import sqlite3
 
 # import os
 # os.environ["REQUEST_METHOD"] = "GET"
-# os.environ["QUERY_STRING"] = "key=create_user&username=s&password=s&confirm=s&email=joshgud777@gmail.com"
+# os.environ["QUERY_STRING"] = "key=create_user&username=s&password=s&
+#                               confirm=s&email=joshgud777@gmail.com"
 import cgitb
 cgitb.enable()
 
@@ -65,4 +66,6 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    lib.print_header()
+    print('Stop Now')
+    #main()
