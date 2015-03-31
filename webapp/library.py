@@ -1,5 +1,4 @@
-'''This is the library files for all used code
-that needs to be uused multi times'''
+'''This is the library files for all used code that needs to be uused multi times'''
 import binascii
 import cgi
 import hashlib
@@ -7,6 +6,8 @@ import http.cookies
 import os
 import sqlite3
 import time
+import cgitb 
+cgitb.enable()
 
 HTML_DIR = 'html\\'
 REDIRECT_DIR = 'redirect\\'
