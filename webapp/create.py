@@ -2,7 +2,7 @@
 if __name__ == '__main__': import library as lib 
 else: import webapp.library as lib
 
-import sqlite3
+enable_script = 0
 
 # import os
 # os.environ["REQUEST_METHOD"] = "GET"
@@ -73,6 +73,8 @@ def main():
 
 
 if __name__ == '__main__':
-    lib.print_header()
-    print("Script Offline! Email 'servgud777@gmail.com' for info.")
-    # main()
+    if enable_script == False:
+        lib.print_header()
+        print("Script Offline! Email 'servgud777@gmail.com' for info.")
+    else:
+        main()
