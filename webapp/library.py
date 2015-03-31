@@ -61,8 +61,10 @@ def add_user(username, pword, email=None):
                                                                display,
                                                                enchexpass,
                                                                salt, email))
-    except:
-        return False
+    except sqlite3.IntegrityError:
+        return 'exist'
+    except sqlite3.Error:
+        return 'sqlerror'
     return True
 
 
