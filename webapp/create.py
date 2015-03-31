@@ -2,7 +2,7 @@
 if __name__ == '__main__': import library as lib
 else: import webapp.library as lib
 
-enable_script = 0
+enable_script = 1
 
 # import os
 # os.environ["REQUEST_METHOD"] = "GET"

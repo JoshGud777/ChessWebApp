@@ -16,6 +16,7 @@ DB_DIR = 'db\\'
 COOKIE_MAX_AGE = 300
 # COOKIE_DOMAIN = 'applequest.fallenofftheedge.com'
 COOKIE_PATH = '/'
+RAT_START = 1000
 
 
 def open_conn(database):
@@ -41,7 +42,7 @@ def close_conn(conn):
     conn.close()
 
 
-def add_user(username, pword, email, c):
+def add_user(username, pword, email, c, rating=RAT_START):
     '''For a givven username and pasword and maybe an e-mail. Adds the user to
     the database. If the user is allready there then it returns false. if it
     added the database it sends True'''
@@ -55,10 +56,11 @@ def add_user(username, pword, email, c):
     hashed_salted_password = hashlib.sha512(utf8pword_salt)
     enchexpass = hashed_salted_password.hexdigest()
     try:
-        c.execute("INSERT INTO logon VALUES (?, ?, ?, ?, ?)", (username,
+        c.execute("INSERT INTO logon VALUES (?, ?, ?, ?, ?, ?)", (username,
                                                                display,
                                                                enchexpass,
-                                                               salt, email))
+                                                               salt, email,
+                                                               rating))
     except sqlite3.IntegrityError:
         return 'exists'
 
