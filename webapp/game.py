@@ -4,6 +4,12 @@ if __name__ == '__main__':
 else:
     import webapp.library as lib
 
+enable_script = 1
+
+# import os
+# os.environ["REQUEST_METHOD"] = "GET"
+# os.environ["QUERY_STRING"] = "key=create_user"
+
 def html_print(userlist):
     html = lib.get_html(lib.HTML_DIR + 'game.html')
     optionlist = ''
@@ -23,6 +29,15 @@ def main():
     html = lib.get_html(lib.HTML_DIR + 'game.html')
     c.execute("SELECT username, display FROM logon")
     dbdata = c.fetchall()
+
+    lib.print_header()
     html_print(dbdata)
 
     lib.close_conn(conn)
+
+if __name__ == '__main__':
+    if enable_script == False:
+        lib.print_header()
+        print("Script Offline! Email 'servgud777@gmail.com' for info.")
+    else:
+        main()
